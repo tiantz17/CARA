@@ -23,6 +23,8 @@ CARA is a benchmark of compound activity prediction and evaluation for real-worl
 
 ### 1.2 Tasks
 
+<img src="CARA-task.png" width=800>
+
 CARA defines six tasks with two task types and three target types.
 The two task types are virtual screening (VS) and lead optimization (LO).
 The VS task focuses on screening hit compounds for specific target from a compound library with diverse scaffolds.
@@ -35,6 +37,8 @@ As a result, the six tasks are VS-All, VS-Kinase, VS-GPCR, LO-All, LO-Kinase, an
 We suggest use VS-All and LO-All for performance evaluation and comparison (see our manuscript for more details).
 
 ### 1.3 Train-test splitting schemes
+
+<img src="CARA-split.png" width=800>
 
 The train-test splitting is conducted at the assay level, i.e., training assay and test assay. We also make sure that there is no data leakage.
 
@@ -51,6 +55,8 @@ In this case, the query samples are used for evaluation.
 
 ### 1.5 Evaluation metrics
 
+<img src="CARA-evaluate.png" width=800>
+
 For the VS task, we care more about the accuracy of top ranking compounds, therefore, we mainly use enrichment factors.
 
 - **EF@1%**: Enrichment factor at top 1%. The hit compounds are defined as those with top 1% highest activities.
@@ -58,6 +64,8 @@ For the VS task, we care more about the accuracy of top ranking compounds, there
 - **EF@5%**: Enrichment factor at top 5%. The hit compounds are defined as those with top 5% highest activities.
 
 - **SR@1%**: Success rate at top 1%. The hit compounds are defined as those with top 1% highest activities. Success: at least one hit compound ranked at the top 1% of the list by predicted scores.
+
+- **SR@5%**: Success rate at top 5%. The hit compounds are defined as those with top 5% highest activities. Success: at least one hit compound ranked at the top 5% of the list by predicted scores.
 
 For the LO task, we need the overall ranking of compounds, therefore we use correlation coefficients.
 
@@ -79,11 +87,29 @@ For the LO task, we need the overall ranking of compounds, therefore we use corr
 | #Test assays | 100 | 58 | 18 | 100 | 54 | 43 |
 
 
-## 2. Using Our Code
+## 2. Code for Training and Evaluation
 
 We provide the code for model training and performance evaluation based on CARA.
 
-### 2.1 General train, pre-train
+### 2.1 Requirements
+
+```
+python=3.7.11
+pandas=1.3.5
+numpy=1.21.5
+scipy=1.7.3
+json=2.0.9
+scikit-learn=1.0.2
+pytorch=1.12.1
+torch-geometric=2.2.0
+rdkit=2020.09.1.0
+gensim=3.8.3
+networkx=2.6.3
+subword_nmt=0.3.8
+codecs
+```
+
+### 2.2 General train, pre-train
 
 ```
 python -u runTrain.py --model [MODEL] --dataset_params task:[TASK],subset:[SUBSET] --info [INFO] --gpu [GPU]
@@ -94,7 +120,7 @@ python -u runTrain.py --model [MODEL] --dataset_params task:[TASK],subset:[SUBSE
 - ```INFO```: mark for training, e.g., fastTrain, begin with 'fast' will print less to speed up
 - ```GPU```: gpu number, e.g., 0
 
-### 2.2 Meta-train
+### 2.3 Meta-train
 ```
 python -u runTrain.py --model [MODEL]Meta --dataset_params task:[TASK],subset:[SUBSET],n_way:[N_WAY],k_shot:[K_SHOT] --info [INFO] --gpu [GPU]
 ```
@@ -102,7 +128,7 @@ python -u runTrain.py --model [MODEL]Meta --dataset_params task:[TASK],subset:[S
 - ```K_SHOT```: number of support samples per assay, e.g., 50
 
 
-### 2.3 General test
+### 2.4 General test
 ```
 python -u runTest.py --model [MODEL] --model_path [MODEL_PATH] --dataset_params task:[TASK],subset:[SUBSET] --info [INFO] --gpu [GPU]
 ```
@@ -112,7 +138,7 @@ python -u runTest.py --model [MODEL] --model_path [MODEL_PATH] --dataset_params 
 - ```INFO```: mark for training, e.g., test, 
 - ```GPU```: gpu number, e.g., 0
 
-### 2.4 Fine-tune, meta-test
+### 2.5 Fine-tune, meta-test
 ```
 python -u runTest.py --model [MODEL]Meta ---model_path [MODEL_PATH] --dataset_params task:[TASK],subset:finetune,step:[STEP],shot:[SHOT] --info [INFO] --gpu [GPU]
 ```
