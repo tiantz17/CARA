@@ -42,9 +42,9 @@ We suggest use VS-All and LO-All for performance evaluation and comparison (see 
 
 The train-test splitting is conducted at the assay level, i.e., training assay and test assay. We also make sure that there is no data leakage.
 
-For the VS task, we use **new target** splitting scheme such that the protein targets in the test assays were not seen during training.
+For the **VS** task, we use **new-protein** splitting scheme such that the protein targets in the test assays were not seen during training.
 
-For the LO task, we use **new assay** splitting scheme such that the congeneric compounds in the test assays were not seen during training.
+For the **LO** task, we use **new-assay** splitting scheme such that the congeneric compounds in the test assays were not seen during training.
 
 
 ### 1.4 Few-shot scenario
@@ -57,7 +57,7 @@ In this case, the query samples are used for evaluation.
 
 <img src="CARA-evaluate.png" width=800>
 
-For the VS task, we care more about the accuracy of top ranking compounds, therefore, we mainly use enrichment factors.
+For the **VS** task, we care more about the accuracy of top ranking compounds, therefore, we mainly use enrichment factors.
 
 - **EF@1%**: Enrichment factor at top 1%. The hit compounds are defined as those with top 1% highest activities.
 
@@ -67,7 +67,7 @@ For the VS task, we care more about the accuracy of top ranking compounds, there
 
 - **SR@5%**: Success rate at top 5%. The hit compounds are defined as those with top 5% highest activities. Success: at least one hit compound ranked at the top 5% of the list by predicted scores.
 
-For the LO task, we need the overall ranking of compounds, therefore we use correlation coefficients.
+For the **LO** task, we need the overall rankings of the compounds, therefore we use correlation coefficients.
 
 - **PCC**: Pearson's correlation coefficient.
 
@@ -133,6 +133,7 @@ python -u runTrain.py --model [MODEL]Meta --dataset_params task:[TASK],subset:[S
 python -u runTest.py --model [MODEL] --model_path [MODEL_PATH] --dataset_params task:[TASK],subset:[SUBSET] --info [INFO] --gpu [GPU]
 ```
 - ```MODEL```: model name, e.g., DeepConvDTI
+- ```MODEL_PATH```: folder to the trained models
 - ```TASK```: task name, e.g., VS_All
 - ```SUBSET```: subset of data, e.g., test, query
 - ```INFO```: mark for training, e.g., test, 
@@ -148,7 +149,7 @@ python -u runTest.py --model [MODEL]Meta ---model_path [MODEL_PATH] --dataset_pa
 
 ## 3. Leaderboard
 
-### 3.1 Leaderboard of VS-All task under the ZS scenario 
+### 3.1 Leaderboard of the VS-All task under the ZS scenario 
 
 | Method | EF@1% | SR@1% (%) | EF@5% | SR@5% (%) |
 |---|---|---|---|---|
@@ -162,7 +163,7 @@ python -u runTest.py --model [MODEL]Meta ---model_path [MODEL_PATH] --dataset_pa
 | GraphDTA       	| 4.70 ± 0.88	| 24.40 ± 1.96	| 1.88 ± 0.21	| 70.80 ± 4.07	| 
 
 
-### 3.2 Leaderboard of LO-All task under the ZS scenario 
+### 3.2 Leaderboard of the LO-All task under the ZS scenario 
 | Method | SCC | PCC | SR@0.5 (%) |
 |---|---|---|---|
 | DeepConvDTI       | **0.30 ± 0.01**   | **0.31 ± 0.01**	| **26.60 ± 2.15** |
@@ -175,7 +176,7 @@ python -u runTest.py --model [MODEL]Meta ---model_path [MODEL_PATH] --dataset_pa
 | GraphDTA       	| 0.22 ± 0.01	| 0.24 ± 0.01	| 15.20 ± 2.04 |
 
 
-### 3.3 Leaderboard of VS-All task under the FS scenario 
+### 3.3 Leaderboard of the VS-All task under the FS scenario 
 
 
 | Strategy | Method | EF@1% | SR@1% (%) |
@@ -199,7 +200,7 @@ python -u runTest.py --model [MODEL]Meta ---model_path [MODEL_PATH] --dataset_pa
 | Re-training                   | DeepDTA        	| 11.81 ± 2.08	| **39.00 ± 3.41**	| 
 | Re-training                   | DeepConvDTI    	| **13.28 ± 0.59**	| **42.80 ± 1.72**	| 
 
-### 3.4 Leaderboard of LO-All task under the FS scenario 
+### 3.4 Leaderboard of the LO-All task under the FS scenario 
 
 | Strategy | Method | PCC | SR@0.5 (%) |
 |---|---|---|---|
