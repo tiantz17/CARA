@@ -90,6 +90,8 @@ For the **LO** task, we need the overall rankings of the compounds, therefore we
 ## 2. Code for Training and Evaluation
 
 We provide the code for model training and performance evaluation based on CARA.
+You can install the following packages to run the code, the installation time may cost a few minutes to several hours.
+The training may cost several hours to a few days for different tasks, dataset sizes, or methods.
 
 ### 2.1 Requirements
 
