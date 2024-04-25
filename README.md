@@ -1,6 +1,8 @@
 # CARA
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.11063965.svg)](https://zenodo.org/badge/DOI/10.5281/zenodo.11063965.svg)
 
 Benchmarking Compound Activity Prediction for Real-World Drug Discovery Applications
+
 
 <img src="CARA-logo.png" width=200>
 
