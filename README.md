@@ -1,4 +1,5 @@
 # CARA
+[![DOI](https://zenodo.org/badge/526178811.svg)](https://zenodo.org/doi/10.5281/zenodo.11125010)
 [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.11063965.svg)](https://doi.org/10.5281/zenodo.11063965)
 
 Benchmarking Compound Activity Prediction for Real-World Drug Discovery Applications
